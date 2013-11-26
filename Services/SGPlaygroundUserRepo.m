@@ -9,6 +9,7 @@
 #import "SGPlaygroundUserRepo.h"
 
 #define PATH_ALL_USERS  @"user/all"
+#define PATH_USER(num) [NSString stringWithFormat:@"user/%d",num]
 
 @implementation SGPlaygroundUserRepo {
 	NSString *_baseUrl;
@@ -22,6 +23,14 @@
 	return self;
 }
 
++ (SGPlaygroundUserRepo*)sharedInstance {
+    static SGPlaygroundUserRepo *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] initWithBaseUrl:PLAYGROUND_PRODUCTION_URL];
+    });
+    return sharedInstance;
+}
 
 + (SGPlaygroundUser*)userFromJSON:(NSDictionary*)json {
 	SGPlaygroundUser *user = [[SGPlaygroundUser alloc] init];
@@ -40,6 +49,7 @@
 	[NSURLConnection sendAsynchronousRequest:request
 									   queue:[NSOperationQueue mainQueue]
 						   completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+							   [super validateResponse:response error:&connectionError];
 							   if(connectionError) {
 								   block(nil, connectionError);
 							   } else {
@@ -47,6 +57,22 @@
 								   block(users, nil);
 							   }
 	}];
+}
+
+- (void)user:(NSNumber*)userId block:(UserBlock)block {
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", _baseUrl, PATH_USER([userId intValue])]];
+	NSURLRequest *request = [NSURLRequest requestWithURL:url];
+	[NSURLConnection sendAsynchronousRequest:request
+									   queue:[NSOperationQueue mainQueue]
+						   completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+							   [super validateResponse:response error:&connectionError];
+							   if(connectionError) {
+								   block(nil, connectionError);
+							   } else {
+								   SGPlaygroundUser *user = [self userFromData:data];
+								   block(user, nil);
+							   }
+						   }];
 }
 
 - (NSArray*) usersFromData:(NSData*)data {
@@ -62,6 +88,16 @@
 		[users addObject:user];
 	}];
 	return users;
+}
+
+- (SGPlaygroundUser*)userFromData:(NSData*)data {
+	NSError *error;
+	NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+	if(error){
+		return nil;
+	}
+	SGPlaygroundUser *user = [SGPlaygroundUserRepo userFromJSON:jsonDict];
+	return user;
 }
 
 @end

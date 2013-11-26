@@ -8,14 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "SGPlaygroundUser.h"
+#import "SGBaseUserRepo.h"
 
 #define PLAYGROUND_PRODUCTION_URL @"http://playground-sethgho.rhcloud.com/api/"
 
 typedef void(^AllUsersBlock)(NSArray* users, NSError *error);
 typedef void(^UserBlock)(SGPlaygroundUser* user, NSError *error);
 
-@interface SGPlaygroundUserRepo : NSObject
+@interface SGPlaygroundUserRepo : SGBaseUserRepo
 
++ (SGPlaygroundUserRepo*)sharedInstance;
 - (id)initWithBaseUrl:(NSString*)baseUrl;
 - (void)allUsers:(AllUsersBlock)block;
 - (void)user:(NSNumber*)userId block:(UserBlock)block;

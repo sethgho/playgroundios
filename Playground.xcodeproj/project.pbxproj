@@ -28,6 +28,9 @@
 		ED7FBDCF1843B4AC00DB3BA1 /* SGPlaygroundUser.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7FBDCD1843B4AC00DB3BA1 /* SGPlaygroundUser.m */; };
 		ED7FBDD31843B55700DB3BA1 /* PlaygroundUserRepoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7FBDD21843B55700DB3BA1 /* PlaygroundUserRepoTests.m */; };
 		ED7FBDD61843B57200DB3BA1 /* PlaygroundUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7FBDD51843B57200DB3BA1 /* PlaygroundUserTests.m */; };
+		ED7FBDD91844FE1800DB3BA1 /* SGBaseUserRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7FBDD81844FE1800DB3BA1 /* SGBaseUserRepo.m */; };
+		ED7FBDDA1844FE1800DB3BA1 /* SGBaseUserRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7FBDD81844FE1800DB3BA1 /* SGBaseUserRepo.m */; };
+		ED7FBDDC1845003D00DB3BA1 /* BaseUserRepoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7FBDDB1845003D00DB3BA1 /* BaseUserRepoTests.m */; };
 		F19290E2399F4E8396A5A327 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B946498D6A463481ED7BAA /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +70,9 @@
 		ED7FBDCD1843B4AC00DB3BA1 /* SGPlaygroundUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SGPlaygroundUser.m; path = Models/SGPlaygroundUser.m; sourceTree = "<group>"; };
 		ED7FBDD21843B55700DB3BA1 /* PlaygroundUserRepoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaygroundUserRepoTests.m; path = Services/PlaygroundUserRepoTests.m; sourceTree = "<group>"; };
 		ED7FBDD51843B57200DB3BA1 /* PlaygroundUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaygroundUserTests.m; path = Models/PlaygroundUserTests.m; sourceTree = "<group>"; };
+		ED7FBDD71844FE1800DB3BA1 /* SGBaseUserRepo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SGBaseUserRepo.h; path = Services/SGBaseUserRepo.h; sourceTree = "<group>"; };
+		ED7FBDD81844FE1800DB3BA1 /* SGBaseUserRepo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SGBaseUserRepo.m; path = Services/SGBaseUserRepo.m; sourceTree = "<group>"; };
+		ED7FBDDB1845003D00DB3BA1 /* BaseUserRepoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseUserRepoTests.m; path = Services/BaseUserRepoTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +185,8 @@
 			children = (
 				ED7FBDC81843B3EE00DB3BA1 /* SGPlaygroundUserRepo.h */,
 				ED7FBDC91843B3EE00DB3BA1 /* SGPlaygroundUserRepo.m */,
+				ED7FBDD71844FE1800DB3BA1 /* SGBaseUserRepo.h */,
+				ED7FBDD81844FE1800DB3BA1 /* SGBaseUserRepo.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -196,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				ED7FBDD21843B55700DB3BA1 /* PlaygroundUserRepoTests.m */,
+				ED7FBDDB1845003D00DB3BA1 /* BaseUserRepoTests.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -374,6 +383,7 @@
 				ED4B90F6184391BA00CE0854 /* SGAppDelegate.m in Sources */,
 				ED7FBDCA1843B3EE00DB3BA1 /* SGPlaygroundUserRepo.m in Sources */,
 				ED7FBDCE1843B4AC00DB3BA1 /* SGPlaygroundUser.m in Sources */,
+				ED7FBDD91844FE1800DB3BA1 /* SGBaseUserRepo.m in Sources */,
 				ED4B90F2184391BA00CE0854 /* main.m in Sources */,
 				ED4B90F9184391BA00CE0854 /* Playground.xcdatamodeld in Sources */,
 			);
@@ -384,8 +394,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED7FBDD31843B55700DB3BA1 /* PlaygroundUserRepoTests.m in Sources */,
+				ED7FBDDC1845003D00DB3BA1 /* BaseUserRepoTests.m in Sources */,
 				ED7FBDD61843B57200DB3BA1 /* PlaygroundUserTests.m in Sources */,
 				ED7FBDCB1843B3EE00DB3BA1 /* SGPlaygroundUserRepo.m in Sources */,
+				ED7FBDDA1844FE1800DB3BA1 /* SGBaseUserRepo.m in Sources */,
 				ED7FBDCF1843B4AC00DB3BA1 /* SGPlaygroundUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

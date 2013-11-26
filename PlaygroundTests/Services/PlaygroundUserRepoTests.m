@@ -54,12 +54,12 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
 	XCTAssertEqualObjects(user.zipCode, @"78729", @"ZipCode was not read from JSON correctly.");
 }
 
--(void)testGetAllUsers {	
+- (void)testGetAllUsers {
 	stubRequest(@"GET", @"http://playground-sethgho.rhcloud.com/api/user/all").
 	andReturn(200).
 	withBody(@"[{\"lastName\":\"Doe\",\"firstName\":\"John\",\"gender\":\"male\",\"address\":\"123MainStreet\",\"city\":\"Blueberryville\",\"stateCode\":\"TX\",\"zipCode\":\"78729\"},{\"lastName\":\"Doe\",\"firstName\":\"Jane\",\"gender\":\"female\",\"address\":\"123MainStreet\",\"city\":\"Blueberryville\",\"stateCode\":\"TX\",\"zipCode\":\"78729\"}]");
 
-	SGPlaygroundUserRepo *repo = [[SGPlaygroundUserRepo alloc] initWithBaseUrl:PLAYGROUND_PRODUCTION_URL];
+	SGPlaygroundUserRepo *repo = [SGPlaygroundUserRepo sharedInstance];
 	hxRunInMainLoop(^(BOOL *done) {
 		[repo allUsers:^(NSArray *users, NSError *error) {
 			XCTAssertNotNil(users, @"User list response was empty.");
@@ -71,7 +71,36 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
 	});
 }
 
--(void)testStubbing {
+- (void)testGetUser {
+	stubRequest(@"GET", @"http://playground-sethgho.rhcloud.com/api/user/1").
+	andReturn(200).
+	withBody(@"{  \"lastName\": \"Doe\",  \"firstName\": \"John\",  \"gender\": \"male\",  \"address\": \"123 Main Street\",  \"city\": \"Blueberryville\",  \"stateCode\": \"TX\",  \"zipCode\": \"78729\"}");
+	
+	SGPlaygroundUserRepo *repo = [SGPlaygroundUserRepo sharedInstance];
+	hxRunInMainLoop(^(BOOL *done) {
+		[repo user:[NSNumber numberWithInteger:1] block:^(SGPlaygroundUser *user, NSError *error) {
+			XCTAssertNotNil(user, @"User returned should not be nil");
+			XCTAssertEqualObjects(@"John", user.firstName, @"User's first name is wrong.");
+			XCTAssertEqualObjects(@"Doe", user.lastName, @"User's last name is wrong");
+			*done = YES;
+		}];
+	});
+}
+
+- (void)testFailGetUser {
+	stubRequest(@"GET", @"http://playground-sethgho.rhcloud.com/api/user/1").
+	andReturn(404);
+	
+	SGPlaygroundUserRepo *repo = [SGPlaygroundUserRepo sharedInstance];
+	hxRunInMainLoop(^(BOOL *done) {
+		[repo user:[NSNumber numberWithInt:1] block:^(SGPlaygroundUser *user, NSError *error) {
+			XCTAssertNotNil(error, @"404 should return an error.");
+			*done = YES;
+		}];
+	});
+}
+
+- (void)testStubbing {
 	stubRequest(@"GET", @"http://www.google.com").andReturn(404);
 	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.com"]];
 
