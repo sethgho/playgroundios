@@ -1,3 +1,8 @@
-# iOS Playground
+#iOS Playground
 
 This is a dummy project I use for exploring new concepts, patterns, and APIs in iOS.
+
+My exercises thus far:
+* Test driven development
+* Testing asynchronous code
+* Using Nocilla to mock HTTP responses
